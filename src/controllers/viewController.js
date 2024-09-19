@@ -7,7 +7,17 @@ const index = (req, res) => {
         }
     )
 }
+const charCreator = (req, res) => {
+    res.render ("charCreator",
+        {
+            title: "CharCreator",
+            layout: "main",
+            style: "main.css"
+        }
+    )
+}
 
 export default {
-    index
+    index,
+    charCreator
 };
