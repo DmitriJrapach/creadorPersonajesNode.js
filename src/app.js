@@ -9,7 +9,8 @@ import userRouter from "./routes/userRouter.js";
 import charRouter from "./routes/charRouter.js";
 import raceRouter from "./routes/raceRouter.js";
 import classRouter from "./routes/classRouter.js";
-
+import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access'; // Para permitir acceso a propiedades heredadas
+import Handlebars from 'handlebars'; // Importa Handlebars para manipular la configuración
 
 dotenv.config();
 const app = express();
@@ -28,32 +29,36 @@ async function connectToMongoDB() {
 
 connectToMongoDB();
 
-// Configuración de Handlebars
-app.engine("handlebars", engine());
-app.set("view engine", "handlebars");
+// Configuración de Handlebars con acceso a propiedades del prototipo
+app.engine("handlebars", engine({
+    handlebars: allowInsecurePrototypeAccess(Handlebars), // Permite acceso a propiedades heredadas
+    layoutsDir: path.join(__dirname, "../views/layouts"), // Ruta a tus layouts
+    defaultLayout: "main", // Layout principal
+}));
 
-// Usa path.join para construir una ruta absoluta a la carpeta views
+// Configuración de la carpeta de vistas
+app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "../views"));
 
-//Middlewares
-app.use(express.json());  // Asegúrate de incluir esto para poder leer JSON en el body de las solicitudes
-app.use(express.urlencoded({ extended: true }));  // Si vas a trabajar con formularios
-app.use(express.static(`${__dirname}/../../public`));
+// Middlewares
+app.use(express.json());  // Para leer JSON en el body de las solicitudes
+app.use(express.urlencoded({ extended: true }));  // Para manejar formularios
+app.use(express.static(path.join(__dirname, "../../public")));  // Archivos estáticos
 
-
-
+// Ruta raíz
 app.get('/', (req, res) => {
     res.render('index', { title: 'Index', layout: 'main' });
 });
 
-//Routers
+// Routers
 app.use("/", viewRouter);
 app.use("/api/users", userRouter);
 app.use("/api/characters", charRouter);
 app.use("/api/race", raceRouter);
 app.use("/api/class", classRouter);
 
-const port = process.env.PORT || 3000;  // Usa process.env.PORT si lo estás configurando
+// Iniciar servidor
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto ${port}`);
 });

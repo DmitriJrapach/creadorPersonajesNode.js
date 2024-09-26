@@ -1,0 +1,28 @@
+<h1>Detalles del Personaje</h1>
+<p><strong>Nombre:</strong> {{personaje.nombre}}</p>
+<p><strong>Raza:</strong> {{personaje.raza}}</p>
+<p><strong>Clase:</strong> {{personaje.clase}}</p>
+
+<h2>Estadísticas</h2>
+<ul>
+  <li>Fuerza: {{personaje.puntosEstadisticas.fuerza}}</li>
+  <li>Destreza: {{personaje.puntosEstadisticas.destreza}}</li>
+  <li>Constitución: {{personaje.puntosEstadisticas.constitucion}}</li>
+  <li>Inteligencia: {{personaje.puntosEstadisticas.inteligencia}}</li>
+  <li>Sabiduría: {{personaje.puntosEstadisticas.sabiduria}}</li>
+  <li>Carisma: {{personaje.puntosEstadisticas.carisma}}</li>
+</ul>
+
+<h2>Modificadores</h2>
+<ul>
+  <li>Fuerza: {{personaje.modificadores.fuerza}}</li>
+  <li>Destreza: {{personaje.modificadores.destreza}}</li>
+  <!-- Agrega más modificadores aquí -->
+</ul>
+
+<h2>Habilidades</h2>
+<ul>
+  {{#each personaje.habilidades}}
+    <li>{{this}}</li>
+  {{/each}}
+</ul>

@@ -1,0 +1,34 @@
+<div id="formPersonaje" class="row"></div>
+  <p class="descripForm">
+    Aca puede seleccionar Raza, Clase y Puntos de Caracteristicas de su personaje. Recuerde que cada característica puede tener un valor entre 8 y 18 y la suma de todas no puede superar 78.
+  </p>
+  <form id="create-character-form">
+    <label for="nombre">Nombre del Personaje:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="clase">Clase:</label>
+    <select id="clase" name="clase">
+      {{#each clases}}
+        <option value="{{this._id}}">{{this.clase}}</option>
+      {{/each}}
+    </select>
+
+    <label for="raza">Raza:</label>
+    <select id="raza" name="raza">
+      {{#each razas}}
+        <option value="{{this._id}}">{{this.nombre}}</option>
+      {{/each}}
+    </select>
+
+    <label for="estadisticas">Distribuir Puntos de Estadísticas:</label>
+    <input type="number" id="fuerza" name="fuerza" placeholder="Fuerza" min="8" max="18" required>
+    <input type="number" id="destreza" name="destreza" placeholder="Destreza" min="8" max="18" required>
+    <input type="number" id="constitucion" name="constitucion" placeholder="Constitución" min="8" max="18" required>
+    <input type="number" id="sabiduria" name="sabiduria" placeholder="Sabiduría" min="8" max="18" required>
+    <input type="number" id="inteligencia" name="inteligencia" placeholder="Inteligencia" min="8" max="18" required>
+    <input type="number" id="carisma" name="carisma" placeholder="Carisma" min="8" max="18" required>
+
+    <button type="submit">Crear Personaje</button>
+  </form>
+  <script src="/js/charCreateFront.js"></script>
+</div>
